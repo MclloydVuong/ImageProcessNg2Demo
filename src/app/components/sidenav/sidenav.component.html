@@ -1,0 +1,30 @@
+<md-sidenav-container class="my-container">
+  <md-sidenav mode="side" opened="true">
+
+    <button md-mini-fab class="my-fab" (click)="selectFile()">
+        <md-icon #visUpload>add</md-icon>
+    </button>
+    <input (change)="fileSelectedEvent($event.target.files[0])" #hiddenUpload 
+        id="hiddenUpload" type="file" accept=".jpg, .bmp, .png, .tiff" visbility="hidden">
+
+    <h1>My Images</h1>
+
+    <div class="my-scrolling-content">
+      <md-list>
+        <md-list-item *ngFor="let imageitem of imageList">
+          <img md-list-avatar [src]="imageitem.src" alt="preview image">
+          <h3 md-line> {{imageitem.filename}} </h3>
+          <span>
+            <button md-icon-button (click)="selectImage(imageitem)">
+              <md-icon>play_arrow</md-icon>
+            </button>
+          </span>
+        </md-list-item>
+      </md-list>
+    </div>
+  </md-sidenav>
+
+  <!--Content in here!!-->
+  <app-image-view [name]="selectedImage.filename" [src]="selectedImage.src"></app-image-view>
+
+</md-sidenav-container>

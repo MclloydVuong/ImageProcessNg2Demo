@@ -1,41 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import '../rxjs-operators'
 
 @Injectable()
 export class UploadService {
   private uploadUrl = "http://localhost:3000/upload";
+  public imageCollection$: Observable<Array<Object>>;
+  private _imageCollectionObserver: any;
+  private _imageCollection: Array<Object>;
 
-  constructor(private http: Http) { }
 
-  upload(file: any): Observable<Object> {
-    let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
-    let options = new RequestOptions({ headers: headers });
-    let formData = new FormData();
-
-    formData.append('file', file);
-
-    console.log(formData);
-
-    return this.http
-      .post(this.uploadUrl, formData, options)
-      .map((res: Response) => {console.log(res)})
-      .catch(this.handleError);
-      
+  constructor() {
+    this._imageCollection = new Array<Object>();
+    this.imageCollection$ = new Observable(observer => {
+      this._imageCollectionObserver = observer;
+    }).share();
   }
 
-  private handleError(error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      console.log(err);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+  upload(file: File): Observable<Object> {
+    return Observable.create(observer => {
+      let formData: FormData = new FormData();
+      let xhr: XMLHttpRequest = new XMLHttpRequest();
+
+      formData.append("imageFile", file, file.name);
+
+      xhr.onreadystatechange = () => xhrCheckStatus();
+
+      xhr.open('POST', this.uploadUrl, true);
+      xhr.send(formData);
+
+      function xhrCheckStatus() {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            observer.next(JSON.parse(xhr.response));
+            observer.complete();
+          } else {
+            observer.error(xhr.response);
+          }
+        }
+      }
+    })
+
+  }
+
+  saveToLocal(filename, file) {
+    localStorage.setItem(filename, file);
+  }
+
+  addImage(file: File) {
+    this.getBase64(file, (result) => {
+      this._imageCollection.push({filename: file.name, src: result});
+      this._imageCollectionObserver.next(this._imageCollection);
+    })
+  }
+
+  getImages(){
+    this._imageCollectionObserver.next(this._imageCollection);
+  }
+
+  getBase64(file: File, callback) {
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      callback(reader.result);
     }
-    return Observable.throw(errMsg);
+    reader.readAsDataURL(file);
   }
 
 }

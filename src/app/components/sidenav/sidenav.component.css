@@ -1,0 +1,37 @@
+.my-container {
+  width: 100vw;
+  height: 93vh;
+}
+
+.my-container md-sidenav {
+  padding: 0px 10px 10px 15px;
+  max-width: 320px;
+}
+
+.my-container .md-sidenav-content,
+.my-container md-sidenav {
+  display: flex;
+}
+
+.my-scrolling-content {
+  overflow: auto;
+}
+
+.my-scrolling-content md-list {
+  width: 320px;
+}
+
+button.my-fab {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+}
+
+#hiddenUpload{
+    width:0px;
+    height:0px;
+    opacity:0;
+    position: absolute;
+    right: 100px;
+    top: 12px;
+}

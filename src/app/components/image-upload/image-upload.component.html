@@ -1,0 +1,43 @@
+<md-card>
+  <md-card-header>
+    <md-card-title>Upload Photo</md-card-title>
+  </md-card-header>
+  <form enctype="multipart/form-data" method="post">
+    <input type="file" (change)="fileChangeEvent($event)">
+    <button md-fab (click)="onSave()">
+      <md-icon class="md-24">file_upload</md-icon>
+    </button>
+    <!--<button md-fab (click)="onUpload()">
+      <md-icon class="md-24">file_upload</md-icon>
+    </button>-->
+  </form>
+</md-card>
+
+<!--<div class="flex-container" fxLayout="row">-->
+  <div #uploadedImage class="flex-item">
+    <md-toolbar color="primary">
+      <span>Image</span>
+    </md-toolbar>
+    <md-card>
+      <img md-card-image [src]="image.src" alt="Selected Image" id="image">
+      <div>
+        <md-select placeholder="Enhancements" [(ngModel)]="setEnhancement">
+          <md-option *ngFor="let enhancement of enhancements" [value]="enhancement.value"> {{ enhancement.viewValue }} </md-option>
+        </md-select>
+        <button md-icon-button (click)="onEnhance()">
+        <md-icon>play_arrow</md-icon>
+      </button>
+      </div>
+    </md-card>
+  </div>
+
+  <div #enhancedImage class="flex-item">
+    <md-toolbar color="accent">
+      <span>Enhanced Image</span>
+    </md-toolbar>
+    <md-card>
+      <canvas #eCanvas md-card-image></canvas>
+
+    </md-card>
+  </div>
+<!--</div>-->

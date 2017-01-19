@@ -1,0 +1,34 @@
+<div class="fxContainer" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start">
+
+  <div class="image-container flex-item">
+    <md-toolbar color="primary">
+      <span>Image: {{imageName}}</span>
+    </md-toolbar>
+    <md-card>
+      <img md-card-image #originalImage [src]="source">
+      <md-select #enhancementSelect placeholder="Enhancements" [disabled]="!isImageSelected">
+        <md-option *ngFor="let enhancement of enhancements" [value]="enhancement.value" (click)="onEnhance(enhancement.value)">
+          {{ enhancement.viewValue }}
+        </md-option>
+      </md-select>
+    </md-card>
+  </div>
+
+  <div class="image-container flex-item">
+    <md-toolbar color="accent">
+      <span>Enhanced Image</span>
+    </md-toolbar>
+    <md-card>
+      <canvas md-card-image #enhancedImage [width]="canvasDimensions.width" [height]="canvasDimensions.height">
+      </canvas>
+      <md-input-container>
+        <input md-input #saveFileName type="text" placeholder="Save As...">
+      </md-input-container>
+      <button md-icon-button (click)="onSaveAs()">
+        <a #downloadLink></a>
+        <md-icon>save</md-icon>
+      </button>
+    </md-card>
+  </div>
+
+</div>
