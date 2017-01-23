@@ -35,6 +35,10 @@ export class ImageViewComponent implements OnInit, AfterViewInit, DoCheck {
       this.resizeCanvas();
       this.image.src = this.source;
       this.isImageSelected = true;
+      this.image.onload = () => {
+        this.drawCanvas(this.context, this.image);
+        this.oldSource = this.source;
+      }
     }
   }
 
@@ -44,8 +48,11 @@ export class ImageViewComponent implements OnInit, AfterViewInit, DoCheck {
     });
     this.isImageSelected = false;
     this.enhancements = [
+      { value: 'normal', viewValue: 'Normal' },
       { value: 'inverse', viewValue: 'Inverse' },
-      { value: 'normal', viewValue: 'Normal' }
+      { value: 'greyscale', viewValue: 'Grey Scale' },
+      { value: 'edge-detection', viewValue: 'Edge Detection' }
+      ,
     ]
     this.canvas = this.enhancedImage.nativeElement;
     this.context = this.canvas.getContext("2d");
@@ -75,7 +82,7 @@ export class ImageViewComponent implements OnInit, AfterViewInit, DoCheck {
       let width = this.context.canvas.width;
       let height = this.context.canvas.height;
       var imageData = this.context.getImageData(0, 0, width, height);
-      this.imageEnhancementService.enhance({ enhancement: enhanceChoice, imageData: imageData })
+      this.imageEnhancementService.enhance({ enhancement: enhanceChoice, imageData: imageData, width: width, height: height })
       this.context.putImageData(this.enhancedImageData.imageData, 0, 0);
     }
   }

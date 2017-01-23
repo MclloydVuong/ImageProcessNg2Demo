@@ -387,10 +387,15 @@ var ImageViewComponent = (function () {
     ImageViewComponent.prototype.ngAfterViewInit = function () {
     };
     ImageViewComponent.prototype.ngDoCheck = function () {
+        var _this = this;
         if (this.oldSource !== this.source) {
             this.resizeCanvas();
             this.image.src = this.source;
             this.isImageSelected = true;
+            this.image.onload = function () {
+                _this.drawCanvas(_this.context, _this.image);
+                _this.oldSource = _this.source;
+            };
         }
     };
     ImageViewComponent.prototype.ngOnInit = function () {
@@ -400,8 +405,10 @@ var ImageViewComponent = (function () {
         });
         this.isImageSelected = false;
         this.enhancements = [
+            { value: 'normal', viewValue: 'Normal' },
             { value: 'inverse', viewValue: 'Inverse' },
-            { value: 'normal', viewValue: 'Normal' }
+            { value: 'greyscale', viewValue: 'Grey Scale' },
+            { value: 'edge-detection', viewValue: 'Edge Detection' },
         ];
         this.canvas = this.enhancedImage.nativeElement;
         this.context = this.canvas.getContext("2d");
@@ -429,7 +436,7 @@ var ImageViewComponent = (function () {
             var width = this.context.canvas.width;
             var height = this.context.canvas.height;
             var imageData = this.context.getImageData(0, 0, width, height);
-            this.imageEnhancementService.enhance({ enhancement: enhanceChoice, imageData: imageData });
+            this.imageEnhancementService.enhance({ enhancement: enhanceChoice, imageData: imageData, width: width, height: height });
             this.context.putImageData(this.enhancedImageData.imageData, 0, 0);
         }
     };
@@ -634,7 +641,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ImageEnhancementService = (function () {
     function ImageEnhancementService() {
         var _this = this;
-        this._enhancedImage = { enhancement: null, imageData: null };
+        this._enhancedImage = { enhancement: null, imageData: null, width: null, height: null };
         this.enhancedImage$ = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
             _this._enhancedImageObserver = observer;
         }).share();
@@ -651,6 +658,12 @@ var ImageEnhancementService = (function () {
             case 'inverse':
                 this.inverse(req);
                 break;
+            case 'greyscale':
+                this.greyscale(req);
+                break;
+            case 'edge-detection':
+                this.edgeDetectionSobel(req);
+                break;
             default:
                 this._enhancedImage = req;
                 this._enhancedImageObserver.next(req);
@@ -663,8 +676,126 @@ var ImageEnhancementService = (function () {
             req.imageData.data[i + 2] = 255 - req.imageData.data[i + 2]; //blue
             req.imageData.data[i + 3] = req.imageData.data[i + 3]; //alpha
         }
-        this._enhancedImage = { enhancement: 'inverse', imageData: req.imageData };
+        this._enhancedImage = req;
         this._enhancedImageObserver.next(this._enhancedImage);
+    };
+    ImageEnhancementService.prototype.greyscale = function (req, callback) {
+        for (var i = 0; i < req.imageData.data.length; i += 4) {
+            var avg = (req.imageData.data[i] + req.imageData.data[i + 1] + req.imageData.data[i + 2]) / 3;
+            req.imageData.data[i] = avg; // red
+            req.imageData.data[i + 1] = avg; // green
+            req.imageData.data[i + 2] = avg; // blue
+        }
+        if (req.enhancement === 'greyscale') {
+            this._enhancedImage = req;
+            this._enhancedImageObserver.next(this._enhancedImage);
+        }
+        else if (callback === undefined) {
+            throw new Error("callback is undefined");
+        }
+        else {
+            callback(req.imageData);
+        }
+    };
+    /**
+     * Function: edgeDetectionSobel
+     * Desciption: Edge detection using Sobel Masks
+     * Parameter(s): {enhacementType:String, imageData: ImageData}
+     * Return: {enhacementType:String, imageData: ImageData}
+     **/
+    ImageEnhancementService.prototype.edgeDetectionSobel = function (req) {
+        var masks = {
+            mask0: [
+                [1, 2, 1],
+                [0, 0, 0],
+                [-1, -2, -1]
+            ],
+            mask1: [
+                [2, 1, 0],
+                [1, 0, -1],
+                [0, -1, -2]
+            ],
+            mask2: [
+                [1, 0, -1],
+                [2, 0, -2],
+                [1, 0, -1]
+            ],
+            mask3: [
+                [0, -1, -2],
+                [1, 0, -1],
+                [2, 1, 0]
+            ],
+            mask4: [
+                [-1, -2, -1],
+                [0, 0, 0],
+                [1, 2, 1]
+            ],
+            mask5: [
+                [-2, -1, 0],
+                [-1, 0, 1],
+                [0, 1, 2]
+            ],
+            mask6: [
+                [-1, 0, 1],
+                [-2, 0, 2],
+                [-1, 0, 1]
+            ],
+            mask7: [
+                [0, 1, 2],
+                [-1, 0, 1],
+                [-2, -1, 0]
+            ]
+        };
+        //greyscale 
+        this.greyscale(req, function (greyImgData) {
+            //perform convolution
+            var min = 0;
+            var max = 255;
+            for (var i = 0; i < greyImgData.imageData.data.length; i += 4) {
+                for (var mask in masks) {
+                    var currentmask = masks[mask];
+                    //top left
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[0][0]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[0][0]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[0][0]; // blue
+                    //top
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[0][1]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[0][1]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[0][1]; // blue
+                    //top right
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[0][2]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[0][2]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[0][2]; // blue
+                    //left
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[1][0]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[1][0]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[1][0]; // blue
+                    //center
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[1][1]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[1][1]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[1][1]; // blue
+                    //right
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[1][2]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[1][2]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[1][2]; // blue
+                    //bot left
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[2][0]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[2][0]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[2][0]; // blue
+                    //bot
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[2][1]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[2][1]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[2][1]; // blue
+                    //bot right
+                    greyImgData.imageData.data[i] = greyImgData.imageData.data[i] * currentmask[2][2]; // red
+                    greyImgData.imageData.data[i + 1] = greyImgData.imageData.data[i] * currentmask[2][2]; // green
+                    greyImgData.imageData.data[i + 2] = greyImgData.imageData.data[i] * currentmask[2][2]; // blue
+                }
+            }
+        });
+        //mask are applied to surrounding pixels, there cant be applied to edges of image
+        function isImgEdge(index, width, height) {
+        }
     };
     ImageEnhancementService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
@@ -815,35 +946,35 @@ module.exports = ""
 /***/ 794:
 /***/ function(module, exports) {
 
-module.exports = "<div>\n    <app-toolbar></app-toolbar>\n    <app-sidenav></app-sidenav>\n</div>"
+module.exports = "<div>\r\n    <app-toolbar></app-toolbar>\r\n    <app-sidenav></app-sidenav>\r\n</div>"
 
 /***/ },
 
 /***/ 795:
 /***/ function(module, exports) {
 
-module.exports = "<md-card>\n  <md-card-header>\n    <md-card-title>Upload Photo</md-card-title>\n  </md-card-header>\n  <form enctype=\"multipart/form-data\" method=\"post\">\n    <input type=\"file\" (change)=\"fileChangeEvent($event)\">\n    <button md-fab (click)=\"onSave()\">\n      <md-icon class=\"md-24\">file_upload</md-icon>\n    </button>\n    <!--<button md-fab (click)=\"onUpload()\">\n      <md-icon class=\"md-24\">file_upload</md-icon>\n    </button>-->\n  </form>\n</md-card>\n\n<!--<div class=\"flex-container\" fxLayout=\"row\">-->\n  <div #uploadedImage class=\"flex-item\">\n    <md-toolbar color=\"primary\">\n      <span>Image</span>\n    </md-toolbar>\n    <md-card>\n      <img md-card-image [src]=\"image.src\" alt=\"Selected Image\" id=\"image\">\n      <div>\n        <md-select placeholder=\"Enhancements\" [(ngModel)]=\"setEnhancement\">\n          <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\"> {{ enhancement.viewValue }} </md-option>\n        </md-select>\n        <button md-icon-button (click)=\"onEnhance()\">\n        <md-icon>play_arrow</md-icon>\n      </button>\n      </div>\n    </md-card>\n  </div>\n\n  <div #enhancedImage class=\"flex-item\">\n    <md-toolbar color=\"accent\">\n      <span>Enhanced Image</span>\n    </md-toolbar>\n    <md-card>\n      <canvas #eCanvas md-card-image></canvas>\n\n    </md-card>\n  </div>\n<!--</div>-->"
+module.exports = "<md-card>\r\n  <md-card-header>\r\n    <md-card-title>Upload Photo</md-card-title>\r\n  </md-card-header>\r\n  <form enctype=\"multipart/form-data\" method=\"post\">\r\n    <input type=\"file\" (change)=\"fileChangeEvent($event)\">\r\n    <button md-fab (click)=\"onSave()\">\r\n      <md-icon class=\"md-24\">file_upload</md-icon>\r\n    </button>\r\n    <!--<button md-fab (click)=\"onUpload()\">\r\n      <md-icon class=\"md-24\">file_upload</md-icon>\r\n    </button>-->\r\n  </form>\r\n</md-card>\r\n\r\n<!--<div class=\"flex-container\" fxLayout=\"row\">-->\r\n  <div #uploadedImage class=\"flex-item\">\r\n    <md-toolbar color=\"primary\">\r\n      <span>Image</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <img md-card-image [src]=\"image.src\" alt=\"Selected Image\" id=\"image\">\r\n      <div>\r\n        <md-select placeholder=\"Enhancements\" [(ngModel)]=\"setEnhancement\">\r\n          <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\"> {{ enhancement.viewValue }} </md-option>\r\n        </md-select>\r\n        <button md-icon-button (click)=\"onEnhance()\">\r\n        <md-icon>play_arrow</md-icon>\r\n      </button>\r\n      </div>\r\n    </md-card>\r\n  </div>\r\n\r\n  <div #enhancedImage class=\"flex-item\">\r\n    <md-toolbar color=\"accent\">\r\n      <span>Enhanced Image</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <canvas #eCanvas md-card-image></canvas>\r\n\r\n    </md-card>\r\n  </div>\r\n<!--</div>-->"
 
 /***/ },
 
 /***/ 796:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"fxContainer\" fxLayout=\"row\" fxLayout.xs=\"column\" fxLayout.sm=\"column\" fxLayoutAlign=\"center start\">\n\n  <div class=\"image-container flex-item\">\n    <md-toolbar color=\"primary\">\n      <span>Image: {{imageName}}</span>\n    </md-toolbar>\n    <md-card>\n      <img md-card-image #originalImage [src]=\"source\">\n      <md-select #enhancementSelect placeholder=\"Enhancements\" [disabled]=\"!isImageSelected\">\n        <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\" (click)=\"onEnhance(enhancement.value)\">\n          {{ enhancement.viewValue }}\n        </md-option>\n      </md-select>\n    </md-card>\n  </div>\n\n  <div class=\"image-container flex-item\">\n    <md-toolbar color=\"accent\">\n      <span>Enhanced Image</span>\n    </md-toolbar>\n    <md-card>\n      <canvas md-card-image #enhancedImage [width]=\"canvasDimensions.width\" [height]=\"canvasDimensions.height\">\n      </canvas>\n      <md-input-container>\n        <input md-input #saveFileName type=\"text\" placeholder=\"Save As...\">\n      </md-input-container>\n      <button md-icon-button (click)=\"onSaveAs()\">\n        <a #downloadLink></a>\n        <md-icon>save</md-icon>\n      </button>\n    </md-card>\n  </div>\n\n</div>"
+module.exports = "<div class=\"fxContainer\" fxLayout=\"row\" fxLayout.xs=\"column\" fxLayout.sm=\"column\" fxLayoutAlign=\"center start\">\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"primary\">\r\n      <span>Image: {{imageName}}</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <img md-card-image #originalImage [src]=\"source\">\r\n      <md-select #enhancementSelect placeholder=\"Enhancements\" [disabled]=\"!isImageSelected\">\r\n        <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\" (click)=\"onEnhance(enhancement.value)\">\r\n          {{ enhancement.viewValue }}\r\n        </md-option>\r\n      </md-select>\r\n    </md-card>\r\n  </div>\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"accent\">\r\n      <span>Enhanced Image</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <canvas md-card-image #enhancedImage [width]=\"canvasDimensions.width\" [height]=\"canvasDimensions.height\">\r\n      </canvas>\r\n      <md-input-container>\r\n        <input md-input #saveFileName type=\"text\" placeholder=\"Save As...\">\r\n      </md-input-container>\r\n      <button md-icon-button (click)=\"onSaveAs()\">\r\n        <a #downloadLink></a>\r\n        <md-icon>save</md-icon>\r\n      </button>\r\n    </md-card>\r\n  </div>\r\n\r\n</div>"
 
 /***/ },
 
 /***/ 797:
 /***/ function(module, exports) {
 
-module.exports = "<md-sidenav-container class=\"my-container\">\n  <md-sidenav mode=\"side\" opened=\"true\">\n\n    <button md-mini-fab class=\"my-fab\" (click)=\"selectFile()\">\n        <md-icon #visUpload>add</md-icon>\n    </button>\n    <input (change)=\"fileSelectedEvent($event.target.files[0])\" #hiddenUpload \n        id=\"hiddenUpload\" type=\"file\" accept=\".jpg, .bmp, .png, .tiff\" visbility=\"hidden\">\n\n    <h1>My Images</h1>\n\n    <div class=\"my-scrolling-content\">\n      <md-list>\n        <md-list-item *ngFor=\"let imageitem of imageList\">\n          <img md-list-avatar [src]=\"imageitem.src\" alt=\"preview image\">\n          <h3 md-line> {{imageitem.filename}} </h3>\n          <span>\n            <button md-icon-button (click)=\"selectImage(imageitem)\">\n              <md-icon>play_arrow</md-icon>\n            </button>\n          </span>\n        </md-list-item>\n      </md-list>\n    </div>\n  </md-sidenav>\n\n  <!--Content in here!!-->\n  <app-image-view [name]=\"selectedImage.filename\" [src]=\"selectedImage.src\"></app-image-view>\n\n</md-sidenav-container>"
+module.exports = "<md-sidenav-container class=\"my-container\">\r\n  <md-sidenav mode=\"side\" opened=\"true\">\r\n\r\n    <button md-mini-fab class=\"my-fab\" (click)=\"selectFile()\">\r\n        <md-icon #visUpload>add</md-icon>\r\n    </button>\r\n    <input (change)=\"fileSelectedEvent($event.target.files[0])\" #hiddenUpload \r\n        id=\"hiddenUpload\" type=\"file\" accept=\".jpg, .bmp, .png, .tiff\" visbility=\"hidden\">\r\n\r\n    <h1>My Images</h1>\r\n\r\n    <div class=\"my-scrolling-content\">\r\n      <md-list>\r\n        <md-list-item *ngFor=\"let imageitem of imageList\">\r\n          <img md-list-avatar [src]=\"imageitem.src\" alt=\"preview image\">\r\n          <h3 md-line> {{imageitem.filename}} </h3>\r\n          <span>\r\n            <button md-icon-button (click)=\"selectImage(imageitem)\">\r\n              <md-icon>play_arrow</md-icon>\r\n            </button>\r\n          </span>\r\n        </md-list-item>\r\n      </md-list>\r\n    </div>\r\n  </md-sidenav>\r\n\r\n  <!--Content in here!!-->\r\n  <app-image-view [name]=\"selectedImage.filename\" [src]=\"selectedImage.src\"></app-image-view>\r\n\r\n</md-sidenav-container>"
 
 /***/ },
 
 /***/ 798:
 /***/ function(module, exports) {
 
-module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\n  <span>Image Enhancement Demo</span>\n</md-toolbar>"
+module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\r\n  <span>Image Enhancement Demo</span>\r\n</md-toolbar>"
 
 /***/ },
 
