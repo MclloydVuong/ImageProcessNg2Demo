@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef, DoCheck } from '@angular/core';
-import { ImageEnhancementService } from '../../services/index';
+import { ImageEnhancementService, UploadService } from '../../services/index';
 
 @Component({
   selector: 'app-image-view',
@@ -24,7 +24,7 @@ export class ImageViewComponent implements OnInit, AfterViewInit, DoCheck {
   private enhancements: Array<Object>;
   private enhancedImageData: any;
 
-  constructor(private imageEnhancementService: ImageEnhancementService) { }
+  constructor(private imageEnhancementService: ImageEnhancementService, private uploadService: UploadService) { }
 
   ngAfterViewInit() {
 
@@ -87,10 +87,22 @@ export class ImageViewComponent implements OnInit, AfterViewInit, DoCheck {
     }
   }
 
-  onSaveAs() {
+  onDownload() {
     this.downloadLink.nativeElement.href = this.enhancedImage.nativeElement.toDataURL();
     this.downloadLink.nativeElement.download = this.saveFileName.nativeElement.value;
     this.downloadLink.nativeElement.click();
+  }
+
+  onUpload() {
+    this.enhancedImage.nativeElement.toBlob(
+      (blob) => {
+        let filename = this.saveFileName.nativeElement.value + '.jpg';
+        console.log(filename);
+        this.uploadService.uploadProcessedImage(blob, filename);
+      },
+      'image/jpeg', 
+      1
+    );
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="fxContainer" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start">
+<div class="fxContainer" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center">
 
   <div class="image-container flex-item">
     <md-toolbar color="primary">
@@ -16,7 +16,7 @@
 
   <div class="image-container flex-item">
     <md-toolbar color="accent">
-      <span>Enhanced Image</span>
+      <span>Processed Image</span>
     </md-toolbar>
     <md-card>
       <canvas md-card-image #enhancedImage [width]="canvasDimensions.width" [height]="canvasDimensions.height">
@@ -24,10 +24,15 @@
       <md-input-container>
         <input md-input #saveFileName type="text" placeholder="Save As...">
       </md-input-container>
-      <button md-icon-button (click)="onSaveAs()">
-        <a #downloadLink></a>
-        <md-icon>save</md-icon>
-      </button>
+      <span>  
+        <button md-icon-button (click)="onUpload()">
+          <md-icon>save</md-icon>
+        </button>
+        <button md-icon-button (click)="onDownload()">
+          <a #downloadLink></a>
+          <md-icon>file_download</md-icon>
+        </button>
+      </span>
     </md-card>
   </div>
 

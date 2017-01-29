@@ -7,16 +7,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs'
 
 import { AppComponent } from './app.component';
-import { ToolbarComponent, ImageUploadComponent, SidenavComponent, ImageViewComponent } from './components/index';
+import { ToolbarComponent, SidenavComponent, ImageViewComponent } from './components/index';
 import { UploadService } from './services/upload.service';
+import { StopClickPropagationDirective } from './directives/index';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    ImageUploadComponent,
     SidenavComponent,
-    ImageViewComponent
+    ImageViewComponent,
+    StopClickPropagationDirective
   ],
   imports: [
     BrowserModule,

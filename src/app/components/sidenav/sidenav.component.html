@@ -1,30 +1,65 @@
 <md-sidenav-container class="my-container">
-  <md-sidenav mode="side" opened="true">
+  <md-sidenav mode="side" [opened]="isSidenav">
 
-    <button md-mini-fab class="my-fab" (click)="selectFile()">
-        <md-icon #visUpload>add</md-icon>
+    <button md-icon-button class="my-fab" (click)="selectFile()">
+        <md-icon >add</md-icon>
     </button>
-    <input (change)="fileSelectedEvent($event.target.files[0])" #hiddenUpload 
-        id="hiddenUpload" type="file" accept=".jpg, .bmp, .png, .tiff" visbility="hidden">
-
+    <input (change)="fileSelectedEvent($event.target.files[0])" #hiddenUpload id="hiddenUpload" type="file" accept=".jpg, .bmp, .png, .tiff"
+      visbility="hidden">
     <h1>My Images</h1>
+    <button md-icon-button id="sideclose" (click)="sidenavToggle()">
+        <md-icon>close</md-icon>
+      </button>
+    <md-tab-group>
+      <md-tab label="Original">
+        <div class="my-scrolling-content">
+          <md-list>
+            <md-list-item *ngFor="let imageitem of imageList">
+              <img md-list-avatar [src]="imageitem.src" alt="preview image">
+              <h3 md-line> {{imageitem.filename}} </h3>
+              <span>
+                <button md-icon-button (click)="selectImage(imageitem)">
+                  <md-icon>play_arrow</md-icon>
+                </button>
+              </span>
+              <span >
+                <button md-icon-button (click)="deleteImage(imageitem)">
+                  <md-icon>close</md-icon>
+                </button>
+              </span>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-tab>
 
-    <div class="my-scrolling-content">
-      <md-list>
-        <md-list-item *ngFor="let imageitem of imageList">
-          <img md-list-avatar [src]="imageitem.src" alt="preview image">
-          <h3 md-line> {{imageitem.filename}} </h3>
-          <span>
-            <button md-icon-button (click)="selectImage(imageitem)">
-              <md-icon>play_arrow</md-icon>
-            </button>
-          </span>
-        </md-list-item>
-      </md-list>
-    </div>
+      <md-tab label="Processed">
+        <div class="my-scrolling-content">
+          <md-list>
+            <md-list-item *ngFor="let imageitem of imageProcessedList">
+              <img md-list-avatar [src]="imageitem.src" alt="preview image">
+              <h3 md-line> {{imageitem.filename}} </h3>
+              <span>
+                <button md-icon-button (click)="onDownload(imageitem)">
+                  <md-icon>file_download</md-icon>
+                </button>
+              </span>
+              <span >
+                <button md-icon-button (click)="deleteImage(imageitem)">
+                  <md-icon>close</md-icon>
+                </button>
+              </span>
+            </md-list-item>
+          </md-list>
+          <a #downloadLink></a>
+        </div>
+      </md-tab>
+    </md-tab-group>
   </md-sidenav>
 
   <!--Content in here!!-->
+  <button md-mini-fab id="sidenav-fab" (click)="sidenavToggle()" *ngIf(!isSidenav)>
+        <md-icon>more_vert</md-icon>
+  </button>
   <app-image-view [name]="selectedImage.filename" [src]="selectedImage.src"></app-image-view>
 
 </md-sidenav-container>
