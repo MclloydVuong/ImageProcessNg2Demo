@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
 
+
 var app = express();
-var router = express.Router();
+var server = require('http').createServer(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,7 +59,6 @@ app.post('/upload_processed', upload('processed').single('imageFile'), (req, res
 
 app.get('/image_list', (req, res) => {
     if (req.query.option) {
-        console.log(req.query.option)
         fs.readdir(`./uploads/${req.query.option}`, (err, files) => {
             if (err) {
                 res.status(500).send('could not retrieve images');
@@ -102,6 +102,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log("listening on port 3000...")
 });
