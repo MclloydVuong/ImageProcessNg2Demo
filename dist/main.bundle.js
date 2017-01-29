@@ -4,19 +4,19 @@ webpackJsonp([0,3],{
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_observable_throw__ = __webpack_require__(801);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_observable_throw__ = __webpack_require__(803);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_observable_throw__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(453);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(454);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_debounceTime__ = __webpack_require__(802);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_debounceTime__ = __webpack_require__(804);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_debounceTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__(803);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__(805);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_distinctUntilChanged___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_distinctUntilChanged__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__ = __webpack_require__(807);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__ = __webpack_require__(809);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_toPromise__ = __webpack_require__(808);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_toPromise__ = __webpack_require__(810);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_toPromise__);
 
 
@@ -30,6 +30,23 @@ webpackJsonp([0,3],{
 /***/ },
 
 /***/ 411:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__upload_service__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image_service__ = __webpack_require__(635);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_enhancement_service__ = __webpack_require__(634);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__upload_service__["a"]; });
+/* unused harmony namespace reexport */
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__image_enhancement_service__["a"]; });
+
+
+
+//# sourceMappingURL=C:/Users/mclloyd/Documents/Personal/Website/image-process/src/index.js.map
+
+/***/ },
+
+/***/ 412:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57,10 +74,10 @@ var UploadService = (function () {
     function UploadService(http) {
         var _this = this;
         this.http = http;
-        this.uploadOriginalUrl = "http://localhost:3000/upload_original";
-        this.uploadProcessedUrl = "http://localhost:3000/upload_processed";
-        this.imagesUrl = "http://localhost:3000/image";
-        this.imageListUrl = "http://localhost:3000/image_list";
+        this.uploadOriginalUrl = "http://vps365877.ovh.net/upload_original";
+        this.uploadProcessedUrl = "http://vps365877.ovh.net/upload_processed";
+        this.imagesUrl = "http://vps365877.ovh.net/image";
+        this.imageListUrl = "http://vps365877.ovh.net/image_list";
         this._imageCollection = new Array();
         this.imageCollection$ = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"](function (observer) {
             _this._imageCollectionObserver = observer;
@@ -203,7 +220,7 @@ var UploadService = (function () {
 
 /***/ },
 
-/***/ 460:
+/***/ 461:
 /***/ function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -212,21 +229,21 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 460;
+webpackEmptyContext.id = 461;
 
 
 /***/ },
 
-/***/ 461:
+/***/ 462:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(637);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(605);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(606);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(636);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(626);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(627);
 
 
 
@@ -240,7 +257,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ },
 
-/***/ 625:
+/***/ 626:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -263,7 +280,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(793),
+            template: __webpack_require__(794),
             styles: [__webpack_require__(790)]
         }), 
         __metadata('design:paramtypes', [])
@@ -274,7 +291,7 @@ var AppComponent = (function () {
 
 /***/ },
 
-/***/ 626:
+/***/ 627:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -282,14 +299,14 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(586);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_flex_layout__ = __webpack_require__(550);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(587);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_flex_layout__ = __webpack_require__(551);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_hammerjs__ = __webpack_require__(788);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_hammerjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(625);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_index__ = __webpack_require__(628);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_upload_service__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_index__ = __webpack_require__(631);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(626);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_index__ = __webpack_require__(629);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_upload_service__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__directives_index__ = __webpack_require__(632);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -343,12 +360,12 @@ var AppModule = (function () {
 
 /***/ },
 
-/***/ 627:
+/***/ 628:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__(635);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__(411);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ImageViewComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -467,7 +484,7 @@ var ImageViewComponent = (function () {
     ImageViewComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-image-view',
-            template: __webpack_require__(794),
+            template: __webpack_require__(795),
             styles: [__webpack_require__(791)],
             providers: [__WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* ImageEnhancementService */]]
         }), 
@@ -480,13 +497,13 @@ var ImageViewComponent = (function () {
 
 /***/ },
 
-/***/ 628:
+/***/ 629:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toolbar_toolbar_component__ = __webpack_require__(630);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sidenav_sidenav_component__ = __webpack_require__(629);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_view_image_view_component__ = __webpack_require__(627);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toolbar_toolbar_component__ = __webpack_require__(631);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sidenav_sidenav_component__ = __webpack_require__(630);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_view_image_view_component__ = __webpack_require__(628);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__toolbar_toolbar_component__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__sidenav_sidenav_component__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__image_view_image_view_component__["a"]; });
@@ -497,12 +514,12 @@ var ImageViewComponent = (function () {
 
 /***/ },
 
-/***/ 629:
+/***/ 630:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__(635);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__(411);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SidenavComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -567,8 +584,8 @@ var SidenavComponent = (function () {
     SidenavComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-sidenav',
-            template: __webpack_require__(849),
-            styles: [__webpack_require__(848)]
+            template: __webpack_require__(796),
+            styles: [__webpack_require__(792)]
         }), 
         __metadata('design:paramtypes', [(typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* UploadService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* UploadService */]) === 'function' && _c) || Object])
     ], SidenavComponent);
@@ -579,7 +596,7 @@ var SidenavComponent = (function () {
 
 /***/ },
 
-/***/ 630:
+/***/ 631:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -603,8 +620,8 @@ var ToolbarComponent = (function () {
     ToolbarComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-toolbar',
-            template: __webpack_require__(795),
-            styles: [__webpack_require__(792)]
+            template: __webpack_require__(797),
+            styles: [__webpack_require__(793)]
         }), 
         __metadata('design:paramtypes', [])
     ], ToolbarComponent);
@@ -614,18 +631,18 @@ var ToolbarComponent = (function () {
 
 /***/ },
 
-/***/ 631:
+/***/ 632:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stop_click_propagation_directive__ = __webpack_require__(632);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stop_click_propagation_directive__ = __webpack_require__(633);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__stop_click_propagation_directive__["a"]; });
 
 //# sourceMappingURL=C:/Users/mclloyd/Documents/Personal/Website/image-process/src/index.js.map
 
 /***/ },
 
-/***/ 632:
+/***/ 633:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -665,7 +682,7 @@ var StopClickPropagationDirective = (function () {
 
 /***/ },
 
-/***/ 633:
+/***/ 634:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -861,7 +878,7 @@ var ImageEnhancementService = (function () {
 
 /***/ },
 
-/***/ 634:
+/***/ 635:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -887,23 +904,6 @@ var ImageService = (function () {
     return ImageService;
 }());
 //# sourceMappingURL=C:/Users/mclloyd/Documents/Personal/Website/image-process/src/image.service.js.map
-
-/***/ },
-
-/***/ 635:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__upload_service__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image_service__ = __webpack_require__(634);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_enhancement_service__ = __webpack_require__(633);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__upload_service__["a"]; });
-/* unused harmony namespace reexport */
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__image_enhancement_service__["a"]; });
-
-
-
-//# sourceMappingURL=C:/Users/mclloyd/Documents/Personal/Website/image-process/src/index.js.map
 
 /***/ },
 
@@ -957,7 +957,7 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(652);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(842);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(844);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -996,52 +996,52 @@ module.exports = ".image-container {\r\n    margin: 10px;\r\n    min-width: 400p
 /***/ 792:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".my-container {\r\n  width: 100vw;\r\n  height: 93vh;\r\n}\r\n\r\n.my-container md-sidenav {\r\n  padding: 0px 10px 10px 15px;\r\n  max-width: 320px;\r\n}\r\n\r\n.my-container .md-sidenav-content,\r\n.my-container md-sidenav {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n}\r\n\r\n.my-scrolling-content {\r\n  overflow: auto;\r\n}\r\n\r\n.my-scrolling-content md-list {\r\n  width: 320px;\r\n}\r\n\r\nbutton.my-fab {\r\n  position: absolute;\r\n  right: 50px;\r\n  top: 15px;\r\n}\r\n\r\nbutton#sidenav-fab {\r\n  position: absolute;\r\n  left: 20px;\r\n  top: 20px;\r\n}\r\n\r\nbutton#sideclose {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 15px;\r\n}\r\n\r\n#hiddenUpload{\r\n    width:0px;\r\n    height:0px;\r\n    opacity:0;\r\n    position: absolute;\r\n    right: 100px;\r\n    top: 12px;\r\n}"
 
 /***/ },
 
 /***/ 793:
 /***/ function(module, exports) {
 
-module.exports = "<div>\r\n    <app-toolbar></app-toolbar>\r\n    <app-sidenav></app-sidenav>\r\n</div>"
+module.exports = ""
 
 /***/ },
 
 /***/ 794:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"fxContainer\" fxLayout=\"row\" fxLayout.xs=\"column\" fxLayout.sm=\"column\" fxLayoutAlign=\"center center\">\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"primary\">\r\n      <span>Image: {{imageName}}</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <img md-card-image #originalImage [src]=\"source\">\r\n      <md-select #enhancementSelect placeholder=\"Enhancements\" [disabled]=\"!isImageSelected\">\r\n        <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\" (click)=\"onEnhance(enhancement.value)\">\r\n          {{ enhancement.viewValue }}\r\n        </md-option>\r\n      </md-select>\r\n    </md-card>\r\n  </div>\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"accent\">\r\n      <span>Processed Image</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <canvas md-card-image #enhancedImage [width]=\"canvasDimensions.width\" [height]=\"canvasDimensions.height\">\r\n      </canvas>\r\n      <md-input-container>\r\n        <input md-input #saveFileName type=\"text\" placeholder=\"Save As...\">\r\n      </md-input-container>\r\n      <span>  \r\n        <button md-icon-button (click)=\"onUpload()\">\r\n          <md-icon>save</md-icon>\r\n        </button>\r\n        <button md-icon-button (click)=\"onDownload()\">\r\n          <a #downloadLink></a>\r\n          <md-icon>file_download</md-icon>\r\n        </button>\r\n      </span>\r\n    </md-card>\r\n  </div>\r\n\r\n</div>"
+module.exports = "<div>\r\n    <app-toolbar></app-toolbar>\r\n    <app-sidenav></app-sidenav>\r\n</div>"
 
 /***/ },
 
 /***/ 795:
 /***/ function(module, exports) {
 
-module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\r\n  <span>Angular 2 Demo für Micro-Dimensions</span>\r\n</md-toolbar>"
+module.exports = "<div class=\"fxContainer\" fxLayout=\"row\" fxLayout.xs=\"column\" fxLayout.sm=\"column\" fxLayoutAlign=\"center center\">\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"primary\">\r\n      <span>Image: {{imageName}}</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <img md-card-image #originalImage [src]=\"source\">\r\n      <md-select #enhancementSelect placeholder=\"Enhancements\" [disabled]=\"!isImageSelected\">\r\n        <md-option *ngFor=\"let enhancement of enhancements\" [value]=\"enhancement.value\" (click)=\"onEnhance(enhancement.value)\">\r\n          {{ enhancement.viewValue }}\r\n        </md-option>\r\n      </md-select>\r\n    </md-card>\r\n  </div>\r\n\r\n  <div class=\"image-container flex-item\">\r\n    <md-toolbar color=\"accent\">\r\n      <span>Processed Image</span>\r\n    </md-toolbar>\r\n    <md-card>\r\n      <canvas md-card-image #enhancedImage [width]=\"canvasDimensions.width\" [height]=\"canvasDimensions.height\">\r\n      </canvas>\r\n      <md-input-container>\r\n        <input md-input #saveFileName type=\"text\" placeholder=\"Save As...\">\r\n      </md-input-container>\r\n      <span>  \r\n        <button md-icon-button (click)=\"onUpload()\">\r\n          <md-icon>save</md-icon>\r\n        </button>\r\n        <button md-icon-button (click)=\"onDownload()\">\r\n          <a #downloadLink></a>\r\n          <md-icon>file_download</md-icon>\r\n        </button>\r\n      </span>\r\n    </md-card>\r\n  </div>\r\n\r\n</div>"
 
 /***/ },
 
-/***/ 843:
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(461);
-
-
-/***/ },
-
-/***/ 848:
-/***/ function(module, exports) {
-
-module.exports = ".my-container {\r\n  width: 100vw;\r\n  height: 93vh;\r\n}\r\n\r\n.my-container md-sidenav {\r\n  padding: 0px 10px 10px 15px;\r\n  max-width: 320px;\r\n}\r\n\r\n.my-container .md-sidenav-content,\r\n.my-container md-sidenav {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n}\r\n\r\n.my-scrolling-content {\r\n  overflow: auto;\r\n}\r\n\r\n.my-scrolling-content md-list {\r\n  width: 320px;\r\n}\r\n\r\nbutton.my-fab {\r\n  position: absolute;\r\n  right: 50px;\r\n  top: 15px;\r\n}\r\n\r\nbutton#sidenav-fab {\r\n  position: absolute;\r\n  left: 20px;\r\n  top: 20px;\r\n}\r\n\r\nbutton#sideclose {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 15px;\r\n}\r\n\r\n#hiddenUpload{\r\n    width:0px;\r\n    height:0px;\r\n    opacity:0;\r\n    position: absolute;\r\n    right: 100px;\r\n    top: 12px;\r\n}"
-
-/***/ },
-
-/***/ 849:
+/***/ 796:
 /***/ function(module, exports) {
 
 module.exports = "<md-sidenav-container class=\"my-container\">\r\n  <md-sidenav mode=\"side\" [opened]=\"isSidenav\">\r\n\r\n    <button md-icon-button class=\"my-fab\" (click)=\"selectFile()\">\r\n        <md-icon >add</md-icon>\r\n    </button>\r\n    <input (change)=\"fileSelectedEvent($event.target.files[0])\" #hiddenUpload id=\"hiddenUpload\" type=\"file\" accept=\".jpg, .bmp, .png, .tiff\"\r\n      visbility=\"hidden\">\r\n    <h1>My Images</h1>\r\n    <button md-icon-button id=\"sideclose\" (click)=\"sidenavToggle()\">\r\n        <md-icon>close</md-icon>\r\n      </button>\r\n    <md-tab-group>\r\n      <md-tab label=\"Original\">\r\n        <div class=\"my-scrolling-content\">\r\n          <md-list>\r\n            <md-list-item *ngFor=\"let imageitem of imageList\">\r\n              <img md-list-avatar [src]=\"imageitem.src\" alt=\"preview image\">\r\n              <h3 md-line> {{imageitem.filename}} </h3>\r\n              <span>\r\n                <button md-icon-button (click)=\"selectImage(imageitem)\">\r\n                  <md-icon>play_arrow</md-icon>\r\n                </button>\r\n              </span>\r\n              <span >\r\n                <button md-icon-button (click)=\"deleteImage(imageitem)\">\r\n                  <md-icon>close</md-icon>\r\n                </button>\r\n              </span>\r\n            </md-list-item>\r\n          </md-list>\r\n        </div>\r\n      </md-tab>\r\n\r\n      <md-tab label=\"Processed\">\r\n        <div class=\"my-scrolling-content\">\r\n          <md-list>\r\n            <md-list-item *ngFor=\"let imageitem of imageProcessedList\">\r\n              <img md-list-avatar [src]=\"imageitem.src\" alt=\"preview image\">\r\n              <h3 md-line> {{imageitem.filename}} </h3>\r\n              <span>\r\n                <button md-icon-button (click)=\"onDownload(imageitem)\">\r\n                  <md-icon>file_download</md-icon>\r\n                </button>\r\n              </span>\r\n              <span >\r\n                <button md-icon-button (click)=\"deleteImage(imageitem)\">\r\n                  <md-icon>close</md-icon>\r\n                </button>\r\n              </span>\r\n            </md-list-item>\r\n          </md-list>\r\n          <a #downloadLink></a>\r\n        </div>\r\n      </md-tab>\r\n    </md-tab-group>\r\n  </md-sidenav>\r\n\r\n  <!--Content in here!!-->\r\n  <button md-mini-fab id=\"sidenav-fab\" (click)=\"sidenavToggle()\" *ngIf(!isSidenav)>\r\n        <md-icon>more_vert</md-icon>\r\n  </button>\r\n  <app-image-view [name]=\"selectedImage.filename\" [src]=\"selectedImage.src\"></app-image-view>\r\n\r\n</md-sidenav-container>"
 
+/***/ },
+
+/***/ 797:
+/***/ function(module, exports) {
+
+module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\r\n  <span>Angular 2 Demo für Micro-Dimensions</span>\r\n</md-toolbar>"
+
+/***/ },
+
+/***/ 845:
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(462);
+
+
 /***/ }
 
-},[843]);
+},[845]);
 //# sourceMappingURL=main.bundle.map
