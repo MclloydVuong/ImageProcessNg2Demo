@@ -6,10 +6,10 @@ import '../rxjs-operators'
 
 @Injectable()
 export class UploadService {
-  private uploadOriginalUrl = "http://vps365877.ovh.net:3000/upload_original";
-  private uploadProcessedUrl = "http://vps365877.ovh.net:3000/upload_processed";
-  private imagesUrl = "http://vps365877.ovh.net:3000/image";
-  private imageListUrl = "http://vps365877.ovh.net:3000/image_list";
+  private uploadOriginalUrl = "http://vps365877.ovh.net/upload_original";
+  private uploadProcessedUrl = "http://vps365877.ovh.net/upload_processed";
+  private imagesUrl = "http://vps365877.ovh.net/image";
+  private imageListUrl = "http://vps365877.ovh.net/image_list";
   // private uploadOriginalUrl = "http://localhost:3000/upload_original";
   // private uploadProcessedUrl = "http://localhost:3000/upload_processed";
   // private imagesUrl = "http://localhost:3000/image";
