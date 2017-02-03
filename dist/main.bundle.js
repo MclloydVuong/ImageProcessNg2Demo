@@ -1031,7 +1031,7 @@ module.exports = "<md-sidenav-container class=\"my-container\">\r\n  <md-sidenav
 /***/ 797:
 /***/ function(module, exports) {
 
-module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\r\n  <span>Angular 2 Demo für Micro-Dimensions</span>\r\n</md-toolbar>"
+module.exports = "<md-toolbar class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"center center\" color=\"primary\">\r\n  <span>Image Processing</span>\r\n</md-toolbar>"
 
 /***/ },
 
